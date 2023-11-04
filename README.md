@@ -1,11 +1,9 @@
 # Terraform: Azure DevHost
 
 ## Table of Contents
-- [Description](#description)
-- [Installation](#installation)
-- [Usage](#usage)
-- [Contributing](#contributing)
-- [License](#license)
+  - [Description](#description)
+  - [Installation](#installation)
+  - [Usage](#usage)
 
 ## Description
 This project (DevHost) uses Terraform to plan, deploy, and destory a Linux VM. This is setup to be run as a manual GitHub Actions Workflow.
@@ -20,8 +18,9 @@ Manually initiate the GitHub workflow to build;
 To utilize this DevHost project:
 
 1. Setup your Repository on github with required variables and secrets.
-- If you are using a _Private_ repository on a free GitHub account, you need to put your variables/secrets into at the Repository level (no Environments).
-- If you are using Enviroments (Public Repo or Paid GitHub), use the workflow for Environments, put the variables/secrets in the environment settings, and leave out the ENV_NAME variable.
+  - If you are using a _Private_ repository on a free GitHub account, put the variables/secrets into at the Repository level (no Environments).
+      - Workflow: **DevHost - Terraform an Azure VM** - used with repository variables (not environments).
+  - If you are using Enviroments (Public Repo or Paid GitHub), use the workflow for Environments (_pending_), put the variables/secrets in the environment settings, and leave out the ENV_NAME variable.
 
     Variables:
     - ENV_NAME
@@ -41,7 +40,7 @@ To utilize this DevHost project:
     1. The ARM_TFSTORE_ACCESSKEY is used to access the TF State storage file. The TF State provides critical perisistence data to the Terraform deployment.
     1.  ARM_TFSTORE_ACCESSKEY is added to the GitHub "secrets" on AFTER the TFState storage account is deployed.
     1. Current workflow expects Environments by GitHub which forces the repository to be Public
-    1. Fork this repository and setup your own Environments
+    1. Create a repository from this repository template [https://github.com/sheeriot/DevHostAzure](https://github.com/sheeriot/DevHostAzure)
 
 ## Usage
 
@@ -53,9 +52,12 @@ To utilize this DevHost project:
 1. Next deploy the Network component. The terraform state for the Network component will be saved in the Terraform State account. Go look at it. Validate.
 
 1. Setup the Terraform for the new DevHost VM. 
-- use your own IP addresses (for SSH access) and Public Keys (three required).
-- edit the `azure/devhost/terraform.vars`
-- modify the terraform as you see fit including the file `scripts/cloud-init.tfpl` to customize your linux host on first boot
+   - add your own source IP address (for SSH access) and SSH Public Key
+     - edit the `azure/devhost/terraform.vars` as needed
+     - an SSH (TLS) Key-Pair is also created as a terraform resource and stored with terraform state
+         - the public key has been provided to the new linux host as an `authorized_key`
+         - the private key can be used as an `IdentityFile`
+   - modify the terraform as you see fit including the file `scripts/cloud-init.tfpl` to customize your linux host on first boot
 
 1. Update the env.sh file header variables to name your Network and Compute (`INFRA_NAME`, `COMPUTE_NAME`).
 
