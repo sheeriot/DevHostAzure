@@ -45,6 +45,9 @@ To utilize this DevHost project:
 
 ## Usage
 
+1. Will need an Azure AD Service Principal. In this example, scoped to a subscription<br>
+   ```az ad sp create-for-rbac --name "svc-terraform-myproj" --scopes /subscriptions/12345678-1234-1234-1234-123456789012```
+
 1. First run the TFState Apply component. You can test with Plan. After TF State is deployed, validate it in the Azure portal. Go to the new Azure Storage Account and get an Access Key to provide as secret ARM_ACCESS_KEY in GitHub.
 
 1. Next deploy the Network component. The terraform state for the Network component will be saved in the Terraform State account. Go look at it. Validate.
