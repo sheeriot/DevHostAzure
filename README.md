@@ -28,7 +28,7 @@ To utilize this DevHost project:
     - CIDR_BLOCK
     - STATE_SUFFIX
     - ARM_TENANT_ID
-    - ARM_SUBSCRIBER_ID
+    - ARM_SUBSCRIPTION_ID
     - ARM_CLIENT_ID
 
     Secrets:
