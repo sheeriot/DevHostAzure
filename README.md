@@ -39,13 +39,13 @@ To utilize this DevHost project:
     
     1. The ARM_TFSTORE_ACCESSKEY is used to access the TF State storage file. The TF State provides critical perisistence data to the Terraform deployment.
     1.  ARM_TFSTORE_ACCESSKEY is added to the GitHub "secrets" on AFTER the TFState storage account is deployed.
-    1. Current workflow expects Environments by GitHub which forces the repository to be Public
+The single provided workflow uses ENV_NAME to switch between environments. This allows you to use a free and private repo (which does not support Environments).
     1. Create a repository from this repository template [https://github.com/sheeriot/DevHostAzure](https://github.com/sheeriot/DevHostAzure)
 
 ## Usage
 
 1. Will need an Azure AD Service Principal. In this example, scoped to a subscription<br>
-   ```az ad sp create-for-rbac --name "svc-terraform-myproj" --scopes /subscriptions/12345678-1234-1234-1234-123456789012```
+   ```az ad sp create-for-rbac --name "svc-terraform-myproj" --role contributor --scopes /subscriptions/12345678-1234-1234-1234-123456789012```
 
 1. First run the TFState Apply component. You can test with Plan. After TF State is deployed, validate it in the Azure portal. Go to the new Azure Storage Account and get an Access Key to provide as secret ARM_ACCESS_KEY in GitHub.
 
